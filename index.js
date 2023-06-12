@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 
@@ -54,6 +55,19 @@ async function run() {
      }
     })
 
+    app.patch('/users/admin/:id',async(req,res) => {
+      const id = req.params.id;
+      const filter = {_id: new ObjectId (id)}
+      const updateDoc ={
+        $set:{
+          role:'admin'
+        },
+        
+      };
+
+      const result = await usersCollection.updateOne(filter,updateDoc);
+      res.send(result)
+    })
 
     app.get('/classes',async (req,res) =>{
         const result = await classCollection.find().toArray();
