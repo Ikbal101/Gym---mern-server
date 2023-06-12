@@ -81,7 +81,7 @@ async function run() {
     //cart collection apis
 
     app.get('/carts', async(req,res) => {
-      const email = req.query.email;
+      const email = req.query.emai
       console.log(email)
       if(!email){
         res.send([]);
