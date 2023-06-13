@@ -237,7 +237,7 @@ app.delete('/users/:id', async (req, res) => {
         const insertResult = await paymentCollection.insertOne(payment);
   
         const query = { _id: { $in: payment.cartItems.map(id => new ObjectId(id)) } }
-        // const deleteResult = await cartsCollection.deleteMany(query)
+        const deleteResult = await cartsCollection.deleteMany(query)
   
         res.send({ insertResult, deleteResult });
       })
