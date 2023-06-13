@@ -232,6 +232,14 @@ app.delete('/users/:id', async (req, res) => {
     })
 
       // payment related api
+
+      app.get('/payments', verifyJWT, async (req, res) => {
+        const email = req.query.email;
+        const query = { email: email };
+        const payments = await paymentCollection.find(query).toArray();
+        res.send(payments);
+      });
+      
       app.post('/payments', verifyJWT, async (req, res) => {
         const payment = req.body;
         const insertResult = await paymentCollection.insertOne(payment);
